@@ -43,13 +43,14 @@ const toVector = (...bytes) => {
 
 /**
  * @internal
- * @param {string[]} halfEnum
- * @returns {Readonly<Record<string | number, string | number>>}
+ * @param {string[]} enumKeys
+ * @returns {Readonly<Record<string, number>>}
  * @description Assuming all values of key-value pairs are unique, returns an
- * object with the original mapping and reverse mapping.
+ * object with the keys being the array's values and the values being the
+ * array's keys.
  */
 const toEnum = (...enumKeys) => {
-    const allPairs = enumKeys.map((value, idx) => [[idx, value], [value, idx]]).flat();
+    const pairs = enumKeys.map((value, idx) => [value, idx]);
     return f(Object.fromEntries(allPairs));
 }
 
@@ -57,8 +58,8 @@ const toEnum = (...enumKeys) => {
  * @constant
  * @description Enum of names of sections to their section id, and vice-versa.
  */
-const moduleSections = toEnum('custom', 'type', 'import', 'function', 'table',
-    'memory', 'global', 'export', 'start', 'element', 'code', 'data', 'dataCount');
+const moduleSections = toEnum('Custom', 'Type', 'Import', 'Function', 'Table',
+    'Memory', 'Global', 'Export', 'Start', 'Element', 'Code', 'Data', 'DataCount');
 
 /**
  * @param {number} number
